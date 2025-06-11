@@ -1,13 +1,18 @@
 # The focal point of orchestrating the tasks together, combining the logic and weaving it to do what we need it to do
 
-from user_information import get_user_info, user_summary
+import user_information
 
 
 def main():
-    accounts = get_user_info()
+    info = []
 
-    user_summary(accounts)
+    while info == []:
+        accounts = user_information.get_user_info()
+        user_information.save_user_info(accounts)
+        info = user_information.load_user_info()
 
+
+    user_information.user_summary(info)
 
 if __name__ == "__main__":
     main()

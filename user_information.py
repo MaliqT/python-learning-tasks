@@ -3,6 +3,8 @@
 # Age
 # Favorite programming language
 
+import json
+
 def get_user_info():
 
     # Empty dict to store user information and empty list to store information of each user
@@ -36,6 +38,24 @@ def get_user_info():
 
     return accounts
 
+
+def save_user_info(accounts):
+    with open("users.json", "w") as f:
+        json.dump(accounts, f, indent=4)
+
+
+def load_user_info():
+    try:
+        with open("users.json", "r") as f:
+            loaded_info = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        if isinstance(e, FileNotFoundError):
+            print("users.json file could not be found. Starting with empty list.")
+        elif isinstance(e, json.JSONDecodeError):
+            print("user.json file must be corrupted. Starting fresh.")
+        return []
+
+    return loaded_info
 
 
 def user_summary(user_accounts):
